@@ -81,3 +81,42 @@ export const Counter3: React.FC = () => {
     </>
   )
 }
+
+export const UserInfo: React.FC = () => {
+  const [user, setUser] = useState({
+    name: 'Jesse Pinkman',
+    age: 25,
+    gender: '男'
+  })
+
+  const onChangeUser = () => {
+    user.name = 'Walt White'
+    user.age = 52
+
+    // setUser({ ...user })
+    setUser(Object.assign({}, user))
+  }
+
+  return (
+    <>
+      <h1>用户信息：</h1>
+      <p>姓名：{user.name}</p>
+      <p>年龄：{user.age}</p>
+      <p>性别：{user.gender}</p>
+      <hr />
+      <button onClick={onChangeUser}>修改用户信息</button>
+    </>
+  )
+}
+
+export const ForceUpdateCom: React.FC = () => {
+  const [, forceUpdate] = useState({})
+
+  const onRefresh = () => forceUpdate({})
+
+  return (
+    <>
+      <button onClick={onRefresh}>强制组件刷新 --- {Date.now()}</button>
+    </>
+  )
+}
