@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 
 export const InputFocus: React.FC = () => {
   const iptRef = useRef<HTMLInputElement>(null)
@@ -52,6 +52,33 @@ export const Counter: React.FC = () => {
         新值是：{count}；旧值是：{prevCountRef.current}
       </h1>
       <button onClick={add}>+1</button>
+    </>
+  )
+}
+
+export const RefTimer: React.FC = () => {
+  const [count, setCount] = useState(0)
+  const time = useRef(Date.now())
+
+  const updateTime = () => {
+    time.current = Date.now()
+    console.log(time.current)
+  }
+
+  console.log('组件渲染了')
+
+  // 强调：今后开发中，千万不要把 ref.current 当做 useEffect 等这些 hooks 的依赖项
+  useEffect(() => {
+    console.log('time.current 发生了变化：' + time.current)
+  }, [time.current])
+
+  return (
+    <>
+      <h3>
+        count 的值是：{count}，time 的值是：{time.current}
+      </h3>
+      <button onClick={() => setCount((prev) => prev + 1)}>+1</button>
+      <button onClick={updateTime}>给time赋新值</button>
     </>
   )
 }
