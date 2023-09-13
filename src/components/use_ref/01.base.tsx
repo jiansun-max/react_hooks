@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useImperativeHandle } from 'react'
+import React, { useRef, useState, useImperativeHandle } from 'react'
 
 export const InputFocus: React.FC = () => {
   const iptRef = useRef<HTMLInputElement>(null)
@@ -69,9 +69,9 @@ export const RefTimer: React.FC = () => {
 
   // useEffect 会在组件首次渲染完毕之后，默认执行一次
   // 组件每次渲染完毕之后，会触发 useEffect 中的回调函数，如果给了依赖项数组，则还要判断依赖项是否变化，再决定是否触发回调
-  useEffect(() => {
-    console.log('触发了useEffect回调的执行：' + time.current)
-  }, [time.current])
+  // useEffect(() => {
+  //   console.log('触发了useEffect回调的执行：' + time.current)
+  // }, [time.current])
 
   return (
     <>
