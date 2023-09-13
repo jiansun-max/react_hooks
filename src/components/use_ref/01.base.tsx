@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useImperativeHandle } from 'react'
 
 export const InputFocus: React.FC = () => {
   const iptRef = useRef<HTMLInputElement>(null)
@@ -67,9 +67,10 @@ export const RefTimer: React.FC = () => {
 
   console.log('组件渲染了')
 
-  // 强调：今后开发中，千万不要把 ref.current 当做 useEffect 等这些 hooks 的依赖项
+  // useEffect 会在组件首次渲染完毕之后，默认执行一次
+  // 组件每次渲染完毕之后，会触发 useEffect 中的回调函数，如果给了依赖项数组，则还要判断依赖项是否变化，再决定是否触发回调
   useEffect(() => {
-    console.log('time.current 发生了变化：' + time.current)
+    console.log('触发了useEffect回调的执行：' + time.current)
   }, [time.current])
 
   return (
@@ -79,6 +80,44 @@ export const RefTimer: React.FC = () => {
       </h3>
       <button onClick={() => setCount((prev) => prev + 1)}>+1</button>
       <button onClick={updateTime}>给time赋新值</button>
+    </>
+  )
+}
+
+const Child = React.forwardRef((_, ref) => {
+  const [count, setCount] = useState(0)
+
+  const add = (step: number) => {
+    setCount((prev) => (prev += step))
+  }
+
+  useImperativeHandle(ref, () => ({
+    name: 'liulongbin',
+    age: 22
+  }))
+
+  return (
+    <>
+      <h3>count的值是：{count}</h3>
+      <button onClick={() => add(-1)}>-1</button>
+      <button onClick={() => add(1)}>+1</button>
+    </>
+  )
+})
+
+export const Father: React.FC = () => {
+  const childRef = useRef()
+
+  const showRef = () => {
+    console.log(childRef.current)
+  }
+
+  return (
+    <>
+      <h1>这是 Father 父组件</h1>
+      <button onClick={showRef}>show ref</button>
+      <hr />
+      <Child ref={childRef} />
     </>
   )
 }
