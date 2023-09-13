@@ -86,36 +86,51 @@ export const RefTimer: React.FC = () => {
 
 const Child = React.forwardRef((_, ref) => {
   const [count, setCount] = useState(0)
+  const [flag, setFlag] = useState(false)
 
   const add = (step: number) => {
     setCount((prev) => (prev += step))
   }
 
-  useImperativeHandle(ref, () => ({
-    name: 'liulongbin',
-    age: 22
-  }))
+  useImperativeHandle(
+    ref,
+    () => {
+      console.log('执行了 useImperativeHandle 中的回调函数')
+      return {
+        count,
+        reset: () => setCount(0)
+      }
+    },
+    [count]
+  )
 
   return (
     <>
       <h3>count的值是：{count}</h3>
+      <p>flag 的值是：{String(flag)}</p>
       <button onClick={() => add(-1)}>-1</button>
       <button onClick={() => add(1)}>+1</button>
+      <button onClick={() => setFlag((prev) => !prev)}>Toggle</button>
     </>
   )
 })
 
 export const Father: React.FC = () => {
-  const childRef = useRef()
+  const childRef = useRef<{ count: number; reset: () => void }>()
 
   const showRef = () => {
     console.log(childRef.current)
+  }
+
+  const onReset = () => {
+    childRef.current?.reset()
   }
 
   return (
     <>
       <h1>这是 Father 父组件</h1>
       <button onClick={showRef}>show ref</button>
+      <button onClick={onReset}>重置</button>
       <hr />
       <Child ref={childRef} />
     </>
