@@ -53,3 +53,43 @@ export const Counter2: React.FC = () => {
     </>
   )
 }
+
+const ColorCom: React.FC = () => {
+  const [color, setColor] = useState('')
+
+  useEffect(() => {
+    const controller = new AbortController()
+
+    fetch('https://api.liulongbin.top/v1/color', { signal: controller.signal })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        setColor(res.data.color)
+      })
+      .catch((err) => console.log('消息：' + err.message))
+
+    // return 清理函数
+    // 清理函数触发的时机有两个：
+    // 1. 组件被卸载的时候，会调用
+    // 2. 当 effect 副作用函数被再次执行之前，会先执行清理函数
+    return () => controller.abort()
+  }, [])
+
+  return (
+    <>
+      <p>color 的颜色值是：{color}</p>
+    </>
+  )
+}
+
+export const TestColorCom: React.FC = () => {
+  const [flag, setFlag] = useState(true)
+
+  return (
+    <>
+      <button onClick={() => setFlag((prev) => !prev)}>Toggle</button>
+      <hr />
+      {flag && <ColorCom />}
+    </>
+  )
+}
