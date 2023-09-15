@@ -54,7 +54,7 @@ export const Counter2: React.FC = () => {
   )
 }
 
-const ColorCom: React.FC = () => {
+const RandomColor: React.FC = () => {
   const [color, setColor] = useState('')
 
   useEffect(() => {
@@ -82,14 +82,14 @@ const ColorCom: React.FC = () => {
   )
 }
 
-export const TestColorCom: React.FC = () => {
+export const TestRandomColor: React.FC = () => {
   const [flag, setFlag] = useState(true)
 
   return (
     <>
       <button onClick={() => setFlag((prev) => !prev)}>Toggle</button>
       <hr />
-      {flag && <ColorCom />}
+      {flag && <RandomColor />}
     </>
   )
 }
