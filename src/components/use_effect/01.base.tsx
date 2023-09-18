@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useMousePosition } from '@/hooks/index.ts'
+import { useMousePosition, useCountDown } from '@/hooks/index.ts'
 
 export const Counter: React.FC = () => {
   const [count, setCount] = useState(0)
@@ -113,6 +113,18 @@ export const TestMouseInfo: React.FC = () => {
       <button onClick={() => setFlag((prev) => !prev)}>Toggle</button>
       <hr />
       {flag && <MouseInfo />}
+    </>
+  )
+}
+
+export const CountDown: React.FC = () => {
+  const [count, disabled] = useCountDown(-3.8)
+
+  return (
+    <>
+      <button disabled={disabled} onClick={() => console.log('协议已生效！')}>
+        {disabled ? `请仔细阅读本协议（${count}）秒` : '请确认此协议'}
+      </button>
     </>
   )
 }

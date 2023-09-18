@@ -21,3 +21,27 @@ export const useMousePosition = (delay: number = 0) => {
 
   return position
 }
+
+type UseCountDown = (num?: number) => [number, boolean]
+export const useCountDown: UseCountDown = (num = 10) => {
+  const seconds = Math.round(Math.abs(num)) || 10
+
+  const [count, setCount] = useState(seconds)
+  const [disabled, setDisabled] = useState(true)
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      if (count > 1) {
+        setCount((prev) => prev - 1)
+      } else {
+        // 清除定时器
+        clearTimeout(timerId)
+        setDisabled(false)
+      }
+    }, 1000)
+
+    return () => clearTimeout(timerId)
+  }, [count])
+
+  return [count, disabled]
+}
