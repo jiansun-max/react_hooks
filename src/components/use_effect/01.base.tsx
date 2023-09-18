@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useMousePosition } from '@/hooks/index.ts'
 
 export const Counter: React.FC = () => {
   const [count, setCount] = useState(0)
@@ -90,6 +91,28 @@ export const TestRandomColor: React.FC = () => {
       <button onClick={() => setFlag((prev) => !prev)}>Toggle</button>
       <hr />
       {flag && <RandomColor />}
+    </>
+  )
+}
+
+const MouseInfo: React.FC = () => {
+  const position = useMousePosition(500)
+
+  return (
+    <>
+      <p>鼠标的位置是：{JSON.stringify(position)}</p>
+    </>
+  )
+}
+
+export const TestMouseInfo: React.FC = () => {
+  const [flag, setFlag] = useState(true)
+
+  return (
+    <>
+      <button onClick={() => setFlag((prev) => !prev)}>Toggle</button>
+      <hr />
+      {flag && <MouseInfo />}
     </>
   )
 }
