@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
 import { useMousePosition, useCountDown } from '@/hooks/index.ts'
 
 export const Counter: React.FC = () => {
@@ -125,6 +125,24 @@ export const CountDown: React.FC = () => {
       <button disabled={disabled} onClick={() => console.log('协议已生效！')}>
         {disabled ? `请仔细阅读本协议（${count}）秒` : '请确认此协议'}
       </button>
+    </>
+  )
+}
+
+export const RandomNumber: React.FC = () => {
+  const [num, setNum] = useState(Math.random() * 200)
+
+  useLayoutEffect(() => {
+    console.log('触发了 useEffect 的副作用函数', num)
+    if (num === 0) {
+      setNum(Math.random() * 200)
+    }
+  }, [num])
+
+  return (
+    <>
+      <h3>num 的值是：{num}</h3>
+      <button onClick={() => setNum(0)}>把 num 改成 0</button>
     </>
   )
 }
