@@ -68,3 +68,24 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* ------ */
+.father {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+}
+
+.son1 {
+  background-color: orange;
+  min-height: 300px;
+  flex: 1;
+  padding: 10px;
+}
+
+.son2 {
+  background-color: lightblue;
+  min-height: 300px;
+  flex: 1;
+  padding: 10px;
+}

@@ -1,11 +1,11 @@
 import React from 'react'
-import { RandomNumber } from '@/components/use_effect/01.base.tsx'
+import { Father } from '@/components/use_reducer/01.base.tsx'
 
 // React.FC<T> 表示这是一个函数式的 react 组件
 const App: React.FC = () => {
   return (
     <>
-      <RandomNumber />
+      <Father />
     </>
   )
 }
