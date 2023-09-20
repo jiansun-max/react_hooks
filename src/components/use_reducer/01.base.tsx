@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 
 type UserType = typeof defaultState
-type ActionType = { type: 'UPDATE_NAME'; payload: string } | { type: 'INCREMENT'; payload: number }
+type ActionType = { type: 'UPDATE_NAME'; payload: string } | { type: 'INCREMENT'; payload: number } | { type: 'DECREMENT'; payload: number }
 
 // 初始状态
 const defaultState = { name: 'liulongbin', age: 0 }
@@ -17,6 +17,8 @@ const reducer = (prevState: UserType, action: ActionType) => {
       return { ...prevState, name: action.payload }
     case 'INCREMENT':
       return { ...prevState, age: prevState.age + action.payload }
+    case 'DECREMENT':
+      return { ...prevState, age: prevState.age - action.payload }
     default:
       return prevState
   }
@@ -47,7 +49,7 @@ export const Father: React.FC = () => {
       <p>{JSON.stringify(state)}</p>
       <div className="father">
         <Son1 {...state} dispatch={dispatch} />
-        <Son2 {...state} />
+        <Son2 {...state} dispatch={dispatch} />
       </div>
     </div>
   )
@@ -66,10 +68,15 @@ const Son1: React.FC<UserType & { dispatch: React.Dispatch<ActionType> }> = (pro
   )
 }
 
-const Son2: React.FC<UserType> = (props) => {
+const Son2: React.FC<UserType & { dispatch: React.Dispatch<ActionType> }> = (props) => {
+  const { dispatch, ...user } = props
+
+  const sub = () => dispatch({ type: 'DECREMENT', payload: 5 })
+
   return (
     <div className="son2">
-      <p>{JSON.stringify(props)}</p>
+      <p>{JSON.stringify(user)}</p>
+      <button onClick={sub}>年龄-5</button>
     </div>
   )
 }
