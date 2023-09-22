@@ -6,18 +6,22 @@ type AppContextType = { count: number; setCount: React.Dispatch<React.SetStateAc
 // 1. 创建 Context 对象
 const AppContext = React.createContext<AppContextType>({} as AppContextType)
 
-export const LevelA: React.FC = () => {
+// 创建一个 Wrapper 组件
+export const AppContextWrapper: React.FC<React.PropsWithChildren> = (props) => {
   // 定义状态
   const [count, setCount] = useState(0)
+  return <AppContext.Provider value={{ count, setCount }}>{props.children}</AppContext.Provider>
+}
+
+export const LevelA: React.FC = () => {
+  const { count, setCount } = useContext(AppContext)
 
   return (
     <div style={{ padding: 30, backgroundColor: 'lightblue', width: '50vw' }}>
       <p>count值是：{count}</p>
       <button onClick={() => setCount((prev) => prev + 1)}>+1</button>
       {/* 使用子组件 */}
-      <AppContext.Provider value={{ count, setCount }}>
-        <LevelB />
-      </AppContext.Provider>
+      <LevelB />
     </div>
   )
 }
