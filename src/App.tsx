@@ -1,12 +1,12 @@
 import React from 'react'
-import { UserInfoContextWrapper, Father } from '@/components/use_context/02.reducer.tsx'
+import { Father } from '@/components/use_memo/01.base.tsx'
 
 // React.FC<T> 表示这是一个函数式的 react 组件
 const App: React.FC = () => {
   return (
-    <UserInfoContextWrapper>
+    <>
       <Father />
-    </UserInfoContextWrapper>
+    </>
   )
 }
 
