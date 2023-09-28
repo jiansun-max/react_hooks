@@ -1,11 +1,11 @@
 import React from 'react'
-import { TabsContainer } from '@/components/use_transition/01.base.tsx'
+import { SearchBox } from '@/components/use_deferred_value/01.base.tsx'
 
 // React.FC<T> 表示这是一个函数式的 react 组件
 const App: React.FC = () => {
   return (
     <>
-      <TabsContainer />
+      <SearchBox />
     </>
   )
 }
