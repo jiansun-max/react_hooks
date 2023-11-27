@@ -1,17 +1,21 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState, useMemo } from "react";
 
 // 父组件
 export const Father: React.FC = () => {
   // 定义 count 和 flag 两个状态
-  const [count, setCount] = useState(0)
-  const [flag, setFlag] = useState(false)
+  const [count, setCount] = useState(0);
+  const [flag, setFlag] = useState(false);
 
   // 根据布尔值进行计算，动态返回内容
   // 注意：useMemo 的返回值是一个计算好的值，而不是函数了
   const tips = useMemo(() => {
-    console.log('触发了 tips 的重新计算')
-    return flag ? <p>哪里贵了，不要睁着眼瞎说好不好</p> : <p>这些年有没有努力工作，工资涨没涨</p>
-  }, [flag])
+    console.log("触发了 tips 的重新计算");
+    return flag ? (
+      <p>哪里贵了，不要睁着眼瞎说好不好</p>
+    ) : (
+      <p>这些年有没有努力工作，工资涨没涨</p>
+    );
+  }, [flag]);
 
   return (
     <>
@@ -22,20 +26,20 @@ export const Father: React.FC = () => {
       <button onClick={() => setCount((prev) => prev + 1)}>+1</button>
       <button onClick={() => setFlag((prev) => !prev)}>Toggle</button>
       <hr />
-      {/* <Son num={count} /> */}
+      <Son num={count} />
     </>
-  )
-}
+  );
+};
 
 // 子组件：依赖于父组件通过 props 传递进来的 num
 // 被 React.memo() 包裹的子组件，只有 props 变化了，才会被重新渲染
 export const Son: React.FC<{ num: number }> = React.memo(({ num }) => {
   useEffect(() => {
-    console.log('触发了子组件的渲染')
-  })
+    console.log("触发了子组件的渲染");
+  });
   return (
     <>
       <h3>子组件 {num}</h3>
     </>
-  )
-})
+  );
+});
