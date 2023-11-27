@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchBox } from "@/components/use_callback/01.base";
+import { SearchBox } from "@/components/use_deferred_value/01.base";
 
 // React.FC<T> 表示这是一个函数式的 react 组件
 const App: React.FC = () => {

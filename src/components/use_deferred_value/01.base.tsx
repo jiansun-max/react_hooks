@@ -7,6 +7,7 @@ export const SearchBox: FC = () => {
   const deferredKw = useDeferredValue(kw);
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e,'---');
     setKw(e.currentTarget.value);
   };
 
